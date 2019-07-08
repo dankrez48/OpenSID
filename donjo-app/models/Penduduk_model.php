@@ -333,7 +333,7 @@
 
 	public function list_data($o=0, $offset=0, $limit=500)
 	{
-		$select_sql = "SELECT DISTINCT u.id, u.nik, u.tanggallahir, u.tempatlahir, u.status, u.status_dasar, u.id_kk, u.nama, u.nama_ayah, u.nama_ibu, a.dusun, a.rw, a.rt, d.alamat, d.no_kk AS no_kk, u.kk_level, u.tag_id_card, u.created_at,
+		$select_sql = "SELECT DISTINCT u.id, u.nik, u.tanggallahir, u.tempatlahir, u.foto, u.status, u.status_dasar, u.id_kk, u.nama, u.nama_ayah, u.nama_ibu, a.dusun, a.rw, a.rt, d.alamat, d.no_kk AS no_kk, u.kk_level, u.tag_id_card, u.created_at,
 			(CASE when u.status_kawin <> 2
 				then k.nama
 				else
@@ -357,8 +357,8 @@
 			case 2: $order_sql = ' ORDER BY u.nik DESC'; break;
 			case 3: $order_sql = ' ORDER BY u.nama'; break;
 			case 4: $order_sql = ' ORDER BY u.nama DESC'; break;
-			case 5: $order_sql = ' ORDER BY d.no_kk'; break;
-			case 6: $order_sql = ' ORDER BY d.no_kk DESC'; break;
+			case 5: $order_sql = ' ORDER BY CONCAT(d.no_kk, u.kk_level)'; break;
+			case 6: $order_sql = ' ORDER BY d.no_kk DESC, u.kk_level'; break;
 			case 7: $order_sql = ' ORDER BY umur'; break;
 			case 8: $order_sql = ' ORDER BY umur DESC'; break;
 			case 9: $order_sql = ' ORDER BY created_at'; break;
@@ -492,8 +492,20 @@
 		$data['tanggal_akhir_paspor'] = empty($data['tanggal_akhir_paspor']) ? NULL : tgl_indo_in($data['tanggal_akhir_paspor']);
 		$data['tanggalperkawinan'] = empty($data['tanggalperkawinan']) ? NULL : tgl_indo_in($data['tanggalperkawinan']);
 		$data['tanggalperceraian'] = empty($data['tanggalperceraian']) ? NULL : tgl_indo_in($data['tanggalperceraian']);
+
+
+		$data['ktp_el'] = $data['ktp_el'] ?: NULL;
+		$data['status_rekam'] = $data['status_rekam'] ?: NULL;
+		$data['berat_lahir'] = $data['berat_lahir'] ?: NULL;
+		$data['tempat_dilahirkan'] = $data['tempat_dilahirkan'] ?: NULL;
+		$data['jenis_kelahiran'] = $data['jenis_kelahiran'] ?: NULL;
+		$data['penolong_kelahiran'] = $data['penolong_kelahiran'] ?: NULL;
+		$data['panjang_lahir'] = $data['panjang_lahir'] ?: NULL;
+		$data['cacat_id'] = $data['cacat_id'] ?: NULL;
+		$data['sakit_menahun_id'] = $data['sakit_menahun_id'] ?: NULL;
+
 		// Hanya status 'kawin' yang boleh jadi akseptor kb
-		if ($data['status_kawin'] != 2) $data['cara_kb_id'] = NULL;
+		if ($data['status_kawin'] != 2 or empty($data['cara_kb_id'])) $data['cara_kb_id'] = NULL;
 		// Status hamil tidak berlaku bagi laki-laki
 		if ($data['sex'] == 1) $data['hamil'] = 0;
 		if (empty($data['kelahiran_anak_ke'])) $data['kelahiran_anak_ke'] = NULL;

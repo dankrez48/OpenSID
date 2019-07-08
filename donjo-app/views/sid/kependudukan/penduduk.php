@@ -52,7 +52,7 @@
 									<a href="<?= site_url("penduduk/cetak")?>" class="btn btn-social btn-flat btn-block btn-sm" title="Cetak Data" target="_blank"><i class="fa fa-print"></i> Cetak</a>
 								</li>
 								<li>
-									<a href="<?= site_url("penduduk/excel")?>" class="btn btn-social btn-flat btn-block btn-sm" title="Unduh Data" target="_blank"><i class="fa fa-download"></i> Unduh</a>
+									<a href="<?= site_url("penduduk/excel/$o")?>" class="btn btn-social btn-flat btn-block btn-sm" title="Unduh Data" target="_blank"><i class="fa fa-download"></i> Unduh</a>
 								</li>
 								<li>
 									<a href="<?= site_url("penduduk/ajax_adv_search")?>" class="btn btn-social btn-flat btn-block btn-sm" title="Pencarian Spesifik" data-remote="false" data-toggle="modal" data-target="#modalBox" data-title="Pencarian Spesifik"><i class="fa fa-search"></i> Pencarian Spesifik</a>
@@ -131,6 +131,7 @@
 															<th><input type="checkbox" id="checkall"/></th>
 															<th>No</th>
 															<th >Aksi</th>
+															<th >Foto</th>
 															<?php if ($o==2): ?>
 																<th><a href="<?= site_url("penduduk/index/$p/1")?>">NIK <i class='fa fa-sort-asc fa-sm'></i></a></th>
 															<?php elseif ($o==1): ?>
@@ -221,6 +222,13 @@
 																				<?php endif; ?>
 																			<?php endif; ?>
 																		</ul>
+																	</div>
+																</td>
+																<td nowrap>
+																	<div class="user-panel">
+																		<div class="image2">
+																			<img src="<?= !empty($data['foto']) ? AmbilFoto($data['foto']) : base_url('assets/files/user_pict/kuser.png') ?>" class="img-circle" alt="Foto Penduduk"/>
+																		</div>
 																	</div>
 																</td>
 																<td>

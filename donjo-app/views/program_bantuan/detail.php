@@ -88,20 +88,21 @@
 											</div>
 										</div>
 										<div class="col-sm-12">
-											<div class="col-sm-9">
-												<div class="box-header with-border">
-													<h3 class="box-title">Daftar Peserta Program</h3>
+											<div class="row">
+												<div class="col-sm-9">
+													<div class="box-header with-border">
+														<h3 class="box-title">Daftar Peserta Program</h3>
+													</div>
 												</div>
-											</div>
-											<div class="col-sm-3">
-												<div class="input-group input-group-sm pull-right">
-													<input name="cari" id="cari" class="form-control" placeholder="Cari..." type="text" value="<?=html_escape($cari)?>" onkeypress="if (event.keyCode == 13){$('#'+'mainform').attr('action', '<?=site_url("program_bantuan/search")?>');$('#'+'mainform').submit();}">
-													<div class="input-group-btn">
-														<button type="submit" class="btn btn-default" onclick="$('#'+'mainform').attr('action', '<?=site_url("program_bantuan/search")?>');$('#'+'mainform').submit();"><i class="fa fa-search"></i></button>
+												<div class="col-sm-3">
+													<div class="input-group input-group-sm pull-right">
+														<input name="cari" id="cari" class="form-control" placeholder="Cari..." type="text" value="<?=html_escape($cari_peserta)?>" onkeypress="if (event.keyCode == 13){$('#'+'mainform').attr('action', '<?=site_url("program_bantuan/search_peserta")?>');$('#'+'mainform').submit();}">
+														<div class="input-group-btn">
+															<button type="submit" class="btn btn-default" onclick="$('#'+'mainform').attr('action', '<?=site_url("program_bantuan/search_peserta")?>');$('#'+'mainform').submit();"><i class="fa fa-search"></i></button>
+														</div>
 													</div>
 												</div>
 											</div>
-											
 										</div>
 										<div class="col-sm-12">
 										<?php $peserta = $program[1];?>
@@ -149,7 +150,7 @@
 																	<td class="text-center"><?= $item["kartu_nik"];?></td>
 																	<td><?= $item["kartu_nama"];?></td>
 																	<td nowrap><?= $item["kartu_tempat_lahir"];?></td>
-																	<td nowrap class="text-center"><?= $item["kartu_tanggal_lahir"];?></td>
+																	<td nowrap class="text-center"><?= tgl_indo_out($item["kartu_tanggal_lahir"]);?></td>
 																	<td><?= $item["kartu_alamat"];?></td>
 																</tr>
 															<?php endforeach; ?>
@@ -158,7 +159,7 @@
 												</table>
 											</div>
 										</div>
-										
+
 									</div>
                   <div class="row">
                     <div class="col-sm-6">
